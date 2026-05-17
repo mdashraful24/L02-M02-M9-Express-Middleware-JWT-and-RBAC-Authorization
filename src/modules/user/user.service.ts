@@ -60,11 +60,11 @@ const updateUserInfoDB = async (payload: IUser, id: string) => {
     return result;
 };
 
-const deleteUserFromDB = async (email: string) => {
+const deleteUserFromDB = async (id: string) => {
 
     const result = await pool.query(`
-            DELETE FROM users WHERE email=$1
-        `, [email]
+            DELETE FROM users WHERE id=$1
+        `, [id]
     );
 
     return result;
