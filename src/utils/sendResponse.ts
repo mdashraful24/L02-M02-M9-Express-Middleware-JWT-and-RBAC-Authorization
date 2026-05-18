@@ -5,7 +5,8 @@ type IResponse<T, E> = {
     success: boolean;
     message?: string;
     data?: T;
-    error?: E
+    error?: E;
+    author?: string;
 }
 
 export const sendResponse = <T, E>(res: Response, resData: IResponse<T, E>) => {
@@ -13,6 +14,7 @@ export const sendResponse = <T, E>(res: Response, resData: IResponse<T, E>) => {
         success: resData.success,
         message: resData.message,
         data: resData.data,
-        error: resData.error
+        error: resData.error,
+        author: resData.author,
     })
 }

@@ -1,19 +1,16 @@
-import type { Request, Response } from "express";
 import { userService } from "./user.service";
 import { sendResponse } from "../../utils/sendResponse";
-
-const createUser = async (req: Request, res: Response) => {
-
+const createUser = async (req, res) => {
     try {
         const result = await userService.createUserIntoDB(req.body);
-
         sendResponse(res, {
             statusCode: 201,
             success: true,
             message: "User created successfully!",
             data: result.rows[0],
         });
-    } catch (error: any) {
+    }
+    catch (error) {
         sendResponse(res, {
             statusCode: 500,
             success: false,
@@ -22,11 +19,9 @@ const createUser = async (req: Request, res: Response) => {
         });
     }
 };
-
-const getAllUsers = async (req: Request, res: Response) => {
+const getAllUsers = async (req, res) => {
     try {
         const result = await userService.getAllUsersFromDB();
-
         if (result.rows.length === 0) {
             sendResponse(res, {
                 statusCode: 404,
@@ -35,14 +30,14 @@ const getAllUsers = async (req: Request, res: Response) => {
                 data: {}
             });
         }
-
         sendResponse(res, {
             statusCode: 200,
             success: true,
             message: "Users retrieve successfully!",
             data: result.rows
         });
-    } catch (error: any) {
+    }
+    catch (error) {
         sendResponse(res, {
             statusCode: 500,
             success: false,
@@ -51,13 +46,10 @@ const getAllUsers = async (req: Request, res: Response) => {
         });
     }
 };
-
-const getSingleUser = async (req: Request, res: Response) => {
+const getSingleUser = async (req, res) => {
     const { id } = req.params;
-
     try {
-        const result = await userService.getSingleUserFromDB(id as string);
-
+        const result = await userService.getSingleUserFromDB(id);
         if (result.rows.length === 0) {
             sendResponse(res, {
                 statusCode: 404,
@@ -66,14 +58,14 @@ const getSingleUser = async (req: Request, res: Response) => {
                 data: {}
             });
         }
-
         sendResponse(res, {
             statusCode: 200,
             success: true,
             message: "User retrieve successfully!",
             data: result.rows[0]
         });
-    } catch (error: any) {
+    }
+    catch (error) {
         sendResponse(res, {
             statusCode: 500,
             success: false,
@@ -82,14 +74,11 @@ const getSingleUser = async (req: Request, res: Response) => {
         });
     }
 };
-
-const updateUser = async (req: Request, res: Response) => {
+const updateUser = async (req, res) => {
     const { id } = req.params;
     // const { name, password, age, is_active } = req.body;
-
     try {
-        const result = await userService.updateUserInfoDB(req.body, id as string);
-
+        const result = await userService.updateUserInfoDB(req.body, id);
         if (result.rows.length === 0) {
             sendResponse(res, {
                 statusCode: 404,
@@ -97,14 +86,14 @@ const updateUser = async (req: Request, res: Response) => {
                 message: "User not found!"
             });
         }
-
         sendResponse(res, {
             statusCode: 200,
             success: true,
             message: "Users updated successfully!",
             data: result.rows[0]
         });
-    } catch (error: any) {
+    }
+    catch (error) {
         sendResponse(res, {
             statusCode: 500,
             success: false,
@@ -113,13 +102,10 @@ const updateUser = async (req: Request, res: Response) => {
         });
     }
 };
-
-const deleteUser = async (req: Request, res: Response) => {
+const deleteUser = async (req, res) => {
     const { email } = req.params;
-
     try {
-        const result = await userService.deleteUserFromDB(email as string);
-
+        const result = await userService.deleteUserFromDB(email);
         if (result.rowCount === 0) {
             sendResponse(res, {
                 statusCode: 404,
@@ -127,13 +113,13 @@ const deleteUser = async (req: Request, res: Response) => {
                 message: "User not found!"
             });
         }
-
         sendResponse(res, {
             statusCode: 200,
             success: true,
             message: "Users deleted successfully!"
         });
-    } catch (error: any) {
+    }
+    catch (error) {
         sendResponse(res, {
             statusCode: 500,
             success: false,
@@ -141,13 +127,12 @@ const deleteUser = async (req: Request, res: Response) => {
             error: error,
         });
     }
-}
-
-
+};
 export const userController = {
     createUser,
     getAllUsers,
     getSingleUser,
     updateUser,
     deleteUser
-}
+};
+//# sourceMappingURL=user.controller.js.map
