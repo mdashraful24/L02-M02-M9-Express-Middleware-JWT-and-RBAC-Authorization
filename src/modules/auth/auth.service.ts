@@ -34,7 +34,7 @@ const loginUserIntoDB = async (payload: { email: string, password: string }) => 
 
     const accessToken = jwt.sign(
         jwtPayload,
-        config.secret,
+        config.secret as string,
         { expiresIn: "1d" }
     );
 
@@ -80,7 +80,7 @@ const generateRefreshToken = async (token: string) => {
 
     const accessToken = jwt.sign(
         jwtPayload,
-        config.secret,
+        config.secret as string,
         { expiresIn: "1d" }
     );
 
